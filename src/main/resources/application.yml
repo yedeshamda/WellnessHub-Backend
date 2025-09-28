@@ -1,0 +1,17 @@
+server:
+    port: 8084
+spring:
+    application:
+        name: WellnessHub-Backend
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: wellnesshub
+        url:  jdbc:postgresql://localhost:5432/wellnesshubDB
+        username: wellnesshub
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true

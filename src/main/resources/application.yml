@@ -5,9 +5,10 @@ spring:
         name: WellnessHub-Backend
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: wellnesshub
+        password: 1240
         url:  jdbc:postgresql://localhost:5432/wellnesshubDB
-        username: wellnesshub
+        username: postgres
+
     jpa:
         hibernate:
             ddl-auto: update

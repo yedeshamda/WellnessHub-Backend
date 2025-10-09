@@ -1,17 +1,39 @@
 server:
-    port: 8084
+  port: 8084
 spring:
-    application:
-        name: WellnessHub-Backend
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        password: wellnesshub
-        url:  jdbc:postgresql://localhost:5432/wellnesshubDB
-        username: wellnesshub
-    jpa:
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-        show-sql: true
+  application:
+    name: WellnessHub-Backend
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: wellnesshub
+    url: jdbc:postgresql://localhost:5432/wellnesshubDB
+    username: wellnesshub
+ 
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include:
+          - configprops
+          - env
+          - health
+          - info
+          - jhimetrics
+          - jhiopenapigroups
+          - logfile
+          - loggers
+          - prometheus
+          - threaddump
+          - caches
+          - liquibase

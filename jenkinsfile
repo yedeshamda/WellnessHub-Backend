@@ -1,0 +1,33 @@
+pipeline {
+    agent any  // Jenkins peut exécuter le pipeline sur n’importe quel agent
+
+    tools {
+        maven 'Maven'     // Nom de Maven configuré dans Jenkins (Manage Jenkins → Global Tool Configuration)
+        jdk 'JDK11'       // Nom du JDK configuré dans Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '📦 Clonage du dépôt...'
+                checkout scm  // Jenkins clone ton dépôt Git
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo '🏗️  Construction du projet Spring Boot...'
+                sh 'mvn clean package -DskipTests'  // Compile et crée le fichier JAR
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build terminé avec succès !'
+        }
+        failure {
+            echo ' Échec du build, vérifie les logs.'
+        }
+    }
+}

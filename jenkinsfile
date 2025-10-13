@@ -4,18 +4,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    checkout scm
-                }
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                script {
-                    bat  'mvn clean package'
-                }
+                bat 'mvn clean package'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build succeeded!'
         }
         failure {
             echo ' Échec du build, vérifie les logs.'

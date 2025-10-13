@@ -10,12 +10,15 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+        stage('Build') {
             steps {
                 script {
                     bat  'mvn clean package'
                 }
             }
+        }
+        failure {
+            echo ' Échec du build, vérifie les logs.'
         }
     }
 }

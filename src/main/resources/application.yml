@@ -5,9 +5,9 @@ spring:
         name: WellnessHub-Backend
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: wellnesshub
+        password: 1240
         url:  jdbc:postgresql://localhost:5432/wellnesshubDB
-        username: wellnesshub
+        username: postgres
     jpa:
         hibernate:
             ddl-auto: update
@@ -15,3 +15,20 @@ spring:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
+
+# Configuration JWT
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 3600000  # 1 heure en millisecondes
+  refresh-token:
+    expiration: 604800000  # 7 jours en millisecondes
+
+
+
+
+# Configuration des logs
+logging:
+  level:
+    com.example: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG

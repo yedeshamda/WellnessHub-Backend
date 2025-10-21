@@ -16,6 +16,12 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
 
+    mail:
+      host: smtp.mailtrap.io
+      port: 2525
+      username: 96c9e6c2b858db
+      password: e5c76a4a09256b
+
 # Configuration JWT
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
@@ -32,3 +38,7 @@ logging:
     com.example: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
+
+
+
+

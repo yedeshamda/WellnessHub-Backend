@@ -3,11 +3,11 @@ version: '3.8'
 services:
   db:
     image: postgres:17-alpine
-    container_name: my-postgres-db
+    container_name: postgres-db
     environment:
       POSTGRES_DB: wellnesshubDB
-      POSTGRES_USER: wellnesshub
-      POSTGRES_PASSWORD: wellnesshub
+      POSTGRES_USER:  postgres
+      POSTGRES_PASSWORD:  1240
     ports:
       - "5432:5432"
     volumes:

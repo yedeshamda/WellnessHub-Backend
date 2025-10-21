@@ -1,5 +1,10 @@
 package org.wellnesshubbackend.wellnesshubbackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.wellnesshubbackend.wellnesshubbackend.dto.*;
 import org.wellnesshubbackend.wellnesshubbackend.exception.*;
 import org.wellnesshubbackend.wellnesshubbackend.model.*;
@@ -13,6 +18,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Optional;
 
 import static org.wellnesshubbackend.wellnesshubbackend.model.UserType.*;
 
@@ -28,6 +38,16 @@ public class AuthService {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+
+
+    private static final SecureRandom secureRandom = new SecureRandom();
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder().withoutPadding();
+
+
+    private final ResetTokenRepository resetTokenRepository;
+    @Autowired
+    private EmailService emailService;
+
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -173,4 +193,31 @@ public class AuthService {
                 return "USER";
         }
     }
+
+
+    public String makeResetToken() {
+        byte[] randomBytes = new byte[32]; // 256-bit token
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
+    }
+
+    public void processRequest(String email) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) return;
+
+        User user = userOpt.get();
+        String token = makeResetToken();
+
+        ResetToken record = new ResetToken();
+        record.setToken(token);
+        record.setUser(user);
+        record.setExpiresAt(LocalDateTime.now().plusMinutes(30));
+
+        resetTokenRepository.save(record);
+
+        emailService.sendEmail(user.getEmail(), token);
+    }
+
+
+
 }

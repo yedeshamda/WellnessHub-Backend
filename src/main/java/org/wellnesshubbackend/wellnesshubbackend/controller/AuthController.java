@@ -1,9 +1,11 @@
 package org.wellnesshubbackend.wellnesshubbackend.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.wellnesshubbackend.wellnesshubbackend.dto.AuthRequest;
 import org.wellnesshubbackend.wellnesshubbackend.dto.AuthResponse;
 import org.wellnesshubbackend.wellnesshubbackend.dto.RegisterRequest;
+import org.wellnesshubbackend.wellnesshubbackend.dto.ResetRequest;
 import org.wellnesshubbackend.wellnesshubbackend.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +39,12 @@ public class AuthController {
     public ResponseEntity<AuthResponse> refreshToken(@RequestHeader("Authorization") String refreshToken) {
         String token = refreshToken.substring(7);
         return ResponseEntity.ok(authService.refreshToken(token));
+    }
+
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> requestReset(@RequestBody ResetRequest request) {
+        authService.processRequest(request.getEmail());
+        return ResponseEntity.ok("If the email is registered, you'll get a reset link");
     }
 }

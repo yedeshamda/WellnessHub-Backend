@@ -46,7 +46,8 @@ public class SecurityConfig {
                                 "/api/public/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/reset-password/**"
                         ).permitAll()
                         .requestMatchers("/api/expert/**").hasAuthority("EXPERT")
                         .requestMatchers("/api/employee/**").hasAuthority("EMPLOYEE")

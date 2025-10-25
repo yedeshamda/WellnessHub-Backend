@@ -1,26 +1,20 @@
-package org.wellnesshubbackend.wellnesshubbackend.model;
-import jakarta.persistence.*;
+package org.wellnesshubbackend.wellnesshubbackend.dto;
+
 import jakarta.validation.constraints.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="USERS")
-@Inheritance(strategy = InheritanceType.JOINED)
-@Getter
-@Setter
-@NoArgsConstructor
+import java.time.LocalDate;
+
+@Data
+@Builder
 @AllArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@NoArgsConstructor
+public class RegisterEmployeeRequest {
     @NotBlank(message = "Le nom d'utilisateur est requis")
     @Size(min = 3, max = 50, message = "Le nom d'utilisateur doit contenir entre 3 et 50 caractères")
-    @Column(unique = true, nullable = false)
     private String username;
 
     @NotBlank(message = "Le prénom est requis")
@@ -33,12 +27,10 @@ public class User {
 
     @NotBlank(message = "L'email est requis")
     @Email(message = "L'email doit être valide")
-    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "Le mot de passe est requis")
     @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
-    @Column(nullable = false)
     private String password;
 
     @Min(value = 18, message = "L'âge minimum est 18 ans")
@@ -62,19 +54,6 @@ public class User {
     @Size(max = 500, message = "L'URL de l'avatar ne peut pas dépasser 500 caractères")
     private String avatarUrl;
 
-    @NotNull(message = "Le type d'utilisateur est requis")
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserType userType;
-
-    @Column(nullable = false)
-    private boolean userVerified = false;
-
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @NotBlank(message = "Le numéro d'employé est requis")
+    private String employeeNumber;
 }

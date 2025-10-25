@@ -1,12 +1,10 @@
 package org.wellnesshubbackend.wellnesshubbackend.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.wellnesshubbackend.wellnesshubbackend.dto.*;
-import org.wellnesshubbackend.wellnesshubbackend.model.ResetToken;
-import org.wellnesshubbackend.wellnesshubbackend.model.User;
+import org.wellnesshubbackend.wellnesshubbackend.model.*;
 import org.wellnesshubbackend.wellnesshubbackend.repository.ResetTokenRepository;
 import org.wellnesshubbackend.wellnesshubbackend.repository.UserRepository;
 import org.wellnesshubbackend.wellnesshubbackend.service.AuthService;
@@ -14,6 +12,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.wellnesshubbackend.wellnesshubbackend.service.EmployeeService;
+import org.wellnesshubbackend.wellnesshubbackend.service.ExpertService;
+import org.wellnesshubbackend.wellnesshubbackend.service.HrPersonnelService;
 
 import java.util.Optional;
 
@@ -26,12 +27,26 @@ public class AuthController {
     private final ResetTokenRepository resetTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final EmployeeService employeeService;
+    private final ExpertService expertService;
+    private final HrPersonnelService hrPersonnelService;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+
+    @PostMapping("/registerEmployee")
+    public ResponseEntity<Employee> registerEmployee(@Valid @RequestBody RegisterEmployeeRequest request) {
+        Employee employee = employeeService.registerEmployee(request);
+        return ResponseEntity.ok(employee);
     }
-
+    @PostMapping("/registerExpert")
+    public ResponseEntity<Expert> registerExpert(@Valid @RequestBody RegisterExpertRequest request) {
+        Expert expert = expertService.registerExpert(request);
+        return ResponseEntity.ok(expert);
+    }
+    @PostMapping("/registerHrPersonnel")
+    public ResponseEntity<HrPersonnel> registerHrPersonnel(@Valid @RequestBody RegisterHrPersonnelRequest request) {
+        HrPersonnel hrPersonnel = hrPersonnelService.registerHrPersonnel(request);
+        return ResponseEntity.ok(hrPersonnel);
+    }
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
         return ResponseEntity.ok(authService.authenticate(request));

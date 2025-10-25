@@ -1,7 +1,5 @@
-
 package org.wellnesshubbackend.wellnesshubbackend.config;
 
-import org.wellnesshubbackend.wellnesshubbackend.config.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,9 +42,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/public/**",
+                                "/v3/api-docs",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**",
                                 "/reset-password/**"
                         ).permitAll()
                         .requestMatchers("/api/expert/**").hasAuthority("EXPERT")
@@ -63,6 +64,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

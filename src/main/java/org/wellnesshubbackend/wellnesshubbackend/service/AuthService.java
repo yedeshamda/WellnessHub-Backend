@@ -1,10 +1,7 @@
 package org.wellnesshubbackend.wellnesshubbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.wellnesshubbackend.wellnesshubbackend.dto.*;
 import org.wellnesshubbackend.wellnesshubbackend.exception.*;
 import org.wellnesshubbackend.wellnesshubbackend.model.*;
@@ -31,9 +28,7 @@ import static org.wellnesshubbackend.wellnesshubbackend.model.UserType.*;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final ExpertRepository expertRepository;
-    private final EmployeeRepository employeeRepository;
-    private final HrPersonnelRepository hrPersonnelRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
@@ -48,7 +43,7 @@ public class AuthService {
     @Autowired
     private EmailService emailService;
 
-
+/*
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         // Vérifier si l'utilisateur existe déjà
@@ -99,7 +94,7 @@ public class AuthService {
                 .userType(request.getUserType().toString())
                 .build();
     }
-
+*/
     public AuthResponse authenticate(AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -110,6 +105,11 @@ public class AuthService {
 
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UserNotFoundException("Utilisateur '" + request.getUsername() + "' non trouvé"));
+
+        // Vérifier si le compte est vérifié
+        if (!user.isUserVerified()) {
+            throw new AccountNotVerifiedException("Votre compte n'a pas été vérifié. Veuillez vérifier votre email avant de vous connecter.");
+        }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
         String jwtToken = jwtUtils.generateToken(userDetails);
@@ -150,14 +150,6 @@ public class AuthService {
         }
     }
 
-    private void setCommonFields(User user, RegisterRequest request) {
-        user.setUsername(request.getUsername());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setUserType(request.getUserType());
-    }
 
     public void logout(String token) {
         // Extraire le token du format "Bearer token"

@@ -2,9 +2,7 @@ package org.wellnesshubbackend.wellnesshubbackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.wellnesshubbackend.wellnesshubbackend.model.Feedback;
 import org.wellnesshubbackend.wellnesshubbackend.model.User;
-import org.wellnesshubbackend.wellnesshubbackend.repository.FeedbackRepository;
 import org.wellnesshubbackend.wellnesshubbackend.repository.UserRepository;
 
 import java.util.List;

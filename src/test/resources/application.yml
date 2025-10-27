@@ -13,7 +13,15 @@ spring:
                 dialect: org.hibernate.dialect.H2Dialect
 
         show-sql: true
+    mail:
+      host: smtp.mailtrap.io
+      port: 2525
+      username: 5820d5c76e356f
+      password: af714080953942
 
+app:
+  frontend:
+    url: https://wellnesshub.com.tn/
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970  # Générer une clé secrète sécurisée
   expiration: 3600000  # 1 heure en millisecondes

@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: wellnesshubDB
       POSTGRES_USER:  postgres
-      POSTGRES_PASSWORD:  1240
+      POSTGRES_PASSWORD: 1234
     ports:
       - "5432:5432"
     volumes:

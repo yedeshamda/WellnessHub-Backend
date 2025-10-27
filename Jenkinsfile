@@ -10,17 +10,23 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                bat 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
             }
         }
     }
 
     post {
         success {
-            echo 'Build succeeded!'
+            echo '✅ Build and tests succeeded!'
         }
         failure {
-            echo ' Échec du build, vérifie les logs.'
+            echo '❌ Échec du build ou des tests, vérifie les logs.'
         }
     }
 }

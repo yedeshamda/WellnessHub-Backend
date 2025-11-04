@@ -6,8 +6,8 @@ services:
     container_name: postgres-db
     environment:
       POSTGRES_DB: wellnesshubDB
-      POSTGRES_USER:  postgres
-      POSTGRES_PASSWORD:  1240
+      POSTGRES_USER:  wellnesshubdb_user
+      POSTGRES_PASSWORD:   I6uWqfiX7YCtCUSVTq1zDH3095yURnEs
     ports:
       - "5432:5432"
     volumes:

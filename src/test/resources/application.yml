@@ -13,6 +13,22 @@ spring:
                 dialect: org.hibernate.dialect.H2Dialect
 
         show-sql: true
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: malekeljendoubi@gmail.com
+      password: uroc fosm vsez xfuo
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+            connectiontimeout: 5000
+            timeout: 5000
+            writetimeout: 5000
+          transport:
+            protocol: smtp
 
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970  # Générer une clé secrète sécurisée

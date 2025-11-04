@@ -7,7 +7,8 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dpg-d3p8p3t6ubrc73evnidg-a.oregon-postgres.render.com:5432/wellnesshubdb
+    #jdbc:postgresql://dpg-d3p8p3t6ubrc73evnidg-a.oregon-postgres.render.com:5432/wellnesshubdb
+    url: jdbc:postgresql://localhost:5432/wellnesshubDB
     username: wellnesshubdb_user
     password: I6uWqfiX7YCtCUSVTq1zDH3095yURnEs
 

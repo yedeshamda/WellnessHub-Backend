@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.*;
 
 @Entity
-@Table(name="USERS")
+@Table(name="users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
@@ -77,4 +77,12 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+
+    // ✅ Ajoute ce constructeur pour que HrPersonnel puisse appeler super(...)
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

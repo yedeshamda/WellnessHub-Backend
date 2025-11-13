@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 5432
 
 spring:
   application:
@@ -8,13 +8,20 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     #jdbc:postgresql://dpg-d3p8p3t6ubrc73evnidg-a.oregon-postgres.render.com:5432/wellnesshubdb
-    url: jdbc:postgresql://localhost:5432/wellnesshubDB
-    username: wellnesshubdb_user
-    password: I6uWqfiX7YCtCUSVTq1zDH3095yURnEs
+    url: jdbc:postgresql://wellnesshub-db.cn8kkoum0l73.eu-west-3.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: CloudDBWellnesshub!2025
+
+
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
   jpa:
     hibernate:
       ddl-auto: update
+
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -61,3 +68,5 @@ logging:
     com.example: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
+
+

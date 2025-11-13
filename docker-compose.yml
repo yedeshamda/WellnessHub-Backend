@@ -14,5 +14,17 @@ services:
       - db_data:/var/lib/postgresql/data
     restart: always
 
+  app:
+    build: .
+    container_name: wellnesshub-app
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/wellnesshubDB
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
+
 volumes:
   db_data:
